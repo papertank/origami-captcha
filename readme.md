@@ -24,7 +24,7 @@ If you do not have package auto discovery, there is a Laravel 5 is a service pro
 
 ‘providers’ => [
     ...
-    Origami\Consent\ConsentServiceProvider::class
+    Origami\Captcha\CaptchaServiceProvider::class
 ];
 ```
 
