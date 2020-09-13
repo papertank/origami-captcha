@@ -12,21 +12,7 @@ composer require origami/captcha
 
 ### Requirements
 
-This package is designed to work with Laravel >= 5.4 currently.
-
-### Service Provider
-
-If you do not have package auto discovery, there is a Laravel 5 is a service provider you can make use of to automatically prepare the bindings.
-
-```php
-
-// app/config/app.php
-
-‘providers’ => [
-    ...
-    Origami\Captcha\CaptchaServiceProvider::class
-];
-```
+This package is designed to work with Laravel >= 6 currently. If you require 5.8 support, use version 1.
 
 ### Setup
 
