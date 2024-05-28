@@ -12,7 +12,7 @@ composer require origami/captcha
 
 ### Requirements
 
-This package is designed to work with Laravel >= 6 currently. If you require 5.8 support, use version 1.
+This package is designed to work with Laravel >= 10 currently. If you require 5.8 support, use version 1. If you require 6-7 support use version 2.
 
 ### Setup
 
@@ -50,7 +50,7 @@ RECAPTCHA_SECRET=
 
 ```php
 $validator = Validator::make($request->all(), [
-    'recaptcha' => 'recaptcha',
+    'recaptcha' => [new Origami\Captcha\Rules\Recaptcha],
 ]);
 ```
 
@@ -64,7 +64,23 @@ class Contact extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'recatpcha' => 'recaptcha'
+            'recatpcha' => [new Origami\Captcha\Rules\Recaptcha]
+        ]);
+    }
+}
+```
+
+### Changing Google secret
+
+If you have multiple Recaptcha secrets (e.g. for different versions), you can customise in the rule params. Otherwise it will default to `config('services.recaptcha.secret')`
+
+```php
+class Contact extends Controller
+{
+    public function store(Request $request)
+    {
+        $this->validate($request, [
+            'recatpcha' => [new Origami\Captcha\Rules\Recaptcha(secret: '123')]
         ]);
     }
 }
@@ -82,7 +98,7 @@ class Contact extends Controller
 
     public function store(Request $request)
     {
-        $this->validateCatpcha($request);
+        $this->validateRecaptcha($request);
 
         // The above will throw a ValidationException when the recaptcha fails.
     }
@@ -106,8 +122,29 @@ This packages registers two Blade helpers:
 <script src="https://www.google.com/recaptcha/api.js"></script>
 ```
 
+## Upgrading
+
+### From v2 to v3
+
+Version 3 was created to add Laravel 11.x support and drop support for Laravel versions before 10.x. This is a breaking change as the package now relies on [Rule Objects](https://laravel.com/docs/10.x/validation#using-rule-objects).
+
+```
+// Before
+$validator = Validator::make($request->all(), [
+    'recaptcha' => 'recaptcha',
+]);
+
+// After
+$validator = Validator::make($request->all(), [
+    'recaptcha' => [new Origami\Captcha\Rules\Recaptcha],
+]);
+```
+
+The `ValidatesCaptcha` trait `validateReCaptcha` method has been renamed `validateRecaptcha`
+
 ## Author
-[Papertank Limited](http://papertank.com)
+- [David Rushton](https://github.com/davidrushton)
+- [Papertank Limited](http://papertank.com)
 
 ## License
 [MIT License](http://github.com/papertank/origami-captcha/blob/master/LICENSE)

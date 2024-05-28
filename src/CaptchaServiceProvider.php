@@ -27,8 +27,6 @@ class CaptchaServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        Validator::extendImplicit('recaptcha', RecaptchaValidator::class.'@validate');
-
         Blade::directive('recaptchaField', function ($expression) {
             return '<div class="g-recaptcha" data-sitekey="'.config('services.recaptcha.key').'"></div>';
         });
