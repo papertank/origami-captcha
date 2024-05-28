@@ -1,4 +1,4 @@
-# Origami Catpcha - Laravel Google ReCaptcha Integration
+# Origami Catpcha - Laravel Captcha Package
 
 This package adds a validation rule and controller trait for easier integration with Google Recaptcha
 
@@ -128,7 +128,7 @@ This packages registers two Blade helpers:
 
 Version 3 was created to add Laravel 11.x support and drop support for Laravel versions before 10.x. This is a breaking change as the package now relies on [Rule Objects](https://laravel.com/docs/10.x/validation#using-rule-objects).
 
-```
+```php
 // Before
 $validator = Validator::make($request->all(), [
     'recaptcha' => 'recaptcha',
